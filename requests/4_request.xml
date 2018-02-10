@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<request>
+    <id>2451256</id>
+    <buyDate>2013-12-05T18:21:07.529-02:00</buyDate>
+    <items>
+       <item>
+            <format>EBOOK</format>
+            <quantity>1</quantity>
+            <book>
+                <codigo>SOA</codigo>
+                <title>SOA aplicado: Integrando com web services e além</title>
+                <smallTitle>SOA</smallTitle>
+                <authorName>Alexandre Saudate</authorName>
+                <value>29.90</value>
+                <printedValue>59.90</printedValue>
+            </book>
+        </item>
+     </items>
+    <payment>
+        <value>59.90</value>
+        <holder>Edgar Milho</holder>
+        <email-holder>milhol@mnb.com</email-holder>
+    </payment>
+</request>
