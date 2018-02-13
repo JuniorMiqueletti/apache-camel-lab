@@ -50,6 +50,16 @@
 			<version>${camel-version}</version>
 		</dependency>
 		<dependency>
+		    <groupId>org.apache.camel</groupId>
+		    <artifactId>camel-xstream</artifactId>
+		    <version>${camel-version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.thoughtworks.xstream</groupId>
+		    <artifactId>xstream</artifactId>
+		    <version>1.4.8</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
 			<version>2.4</version>
