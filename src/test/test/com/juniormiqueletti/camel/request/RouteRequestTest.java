@@ -22,6 +22,8 @@ public class RouteRequestTest {
 			@Override
 			public void configure() throws Exception {
 				from("file:requests?noop=true")
+				.marshal()
+					.xmljson()
 				.log("${exchange.pattern}")
 				.log("${id} - ${body}")
 				.to("file:out");
