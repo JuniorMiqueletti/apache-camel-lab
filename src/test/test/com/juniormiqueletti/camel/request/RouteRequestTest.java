@@ -3,6 +3,7 @@ package com.juniormiqueletti.camel.request;
 import static org.junit.Assert.assertTrue;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.junit.Before;
@@ -68,7 +69,7 @@ public class RouteRequestTest {
 						.xmljson()
 					.log("${exchange.pattern}")
 					.log("${id} - ${body}")
-					.setHeader("CamelFileName", simple("${file:name.noext}_${id}.json"))
+					.setHeader(Exchange.FILE_NAME, simple("${file:name.noext}_${header.CamelSplitIndex}.json"))
 				.to(uriOut);
 			}
 		});
@@ -101,7 +102,7 @@ public class RouteRequestTest {
 						.xmljson()
 					.log("${exchange.pattern}")
 					.log("${id} - ${body}")
-					.setHeader("CamelFileName", simple("${file:name.noext}_${id}.json"))
+					.setHeader(Exchange.FILE_NAME, simple("${file:name.noext}_${header.CamelSplitIndex}.json"))
 				.to(uriOut);
 			}
 		});
