@@ -43,7 +43,7 @@ public class RouteRequestTest {
 		});
 		
 		context.start();
-		Thread.sleep(5000);
+		Thread.sleep(2000);
 		
 		long numberFiles = Arrays.asList(tempFolder.getRoot().listFiles())
 			.stream()
@@ -74,12 +74,45 @@ public class RouteRequestTest {
 		});
 		
 		context.start();
-		Thread.sleep(5000);
+		Thread.sleep(2000);
 		
 		long numberFiles = Arrays.asList(tempFolder.getRoot().listFiles())
 				.stream()
 				.count();
 		
 		assertTrue(numberFiles == 6);
+	}
+	
+	@Test
+	public void splitFilterTest() throws Exception {
+		String absolutePath = tempFolder.getRoot().getAbsolutePath();
+		String uriOut = "file:" + absolutePath;
+		
+		context.addRoutes(new RouteBuilder() {
+			@Override
+			public void configure() throws Exception {
+				
+				from("file:requests?noop=true")
+					.split()
+						.xpath("request/items/item")
+					.filter()
+						.xpath("/item/format[text()='EBOOK']")
+					.marshal()
+						.xmljson()
+					.log("${exchange.pattern}")
+					.log("${id} - ${body}")
+					.setHeader("CamelFileName", simple("${file:name.noext}_${id}.json"))
+				.to(uriOut);
+			}
+		});
+		
+		context.start();
+		Thread.sleep(2000);
+		
+		long numberFiles = Arrays.asList(tempFolder.getRoot().listFiles())
+				.stream()
+				.count();
+		
+		assertTrue(numberFiles == 3);
 	}
 }
