@@ -29,7 +29,6 @@ public class HttpToFileTransferTest {
 	public void basicTest() throws Exception {
 		String absolutePath = tempFolder.getRoot().getAbsolutePath();
 		String uriOut = "file:" + absolutePath;
-//		String uriOut = "file:out";
 		
 		context.addRoutes(new RouteBuilder() {
 			@Override
