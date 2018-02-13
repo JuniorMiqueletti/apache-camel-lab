@@ -13,7 +13,7 @@ import org.junit.rules.TemporaryFolder;
 
 import scala.actors.threadpool.Arrays;
 
-public class RouteRequestTest {
+public class FileTransferRouteTest {
 
 	private CamelContext context;
 	
