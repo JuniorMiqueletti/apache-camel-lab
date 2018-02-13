@@ -2,6 +2,8 @@ package com.juniormiqueletti.camel.request;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
@@ -10,8 +12,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-
-import scala.actors.threadpool.Arrays;
 
 public class FileTransferRouteTest {
 
