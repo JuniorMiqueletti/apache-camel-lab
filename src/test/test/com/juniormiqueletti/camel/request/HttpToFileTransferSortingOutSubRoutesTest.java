@@ -35,6 +35,7 @@ private CamelContext context;
 			    .routeId("route-requests")
 			    	.multicast()
 			    		.parallelProcessing()
+			    			.timeout(500)
 		        .to("direct:http")
 		        .to("direct:soap");
 				
