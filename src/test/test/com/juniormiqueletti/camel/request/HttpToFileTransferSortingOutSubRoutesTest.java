@@ -68,4 +68,46 @@ private CamelContext context;
 		Thread.sleep(20000);
 		context.stop();
 	}
+	
+	@Test
+	public void basicSEDATest() throws Exception {
+		
+		context.addRoutes(new RouteBuilder() {
+			@Override
+			public void configure() throws Exception {
+				
+				from("file:requests?noop=true")
+			    .routeId("route-requests")
+		        .to("seda:http")
+		        .to("seda:soap");
+				
+				from("seda:soap")
+					.routeId("route-soap")
+					.log("calling soap service")
+				.to("mock:soap");
+				
+				from("seda:http")
+					.routeId("route-http")
+					.setProperty("requestId", xpath("/request/id/text()"))
+				    .setProperty("clientId", xpath("/request/payment/email-holder/text()"))
+					.split()
+						.xpath("request/items/item")
+					.filter()
+					.xpath("/item/formato[text()='EBOOK']")
+					.setProperty("ebookId", xpath("/item/book/codigo/text()"))
+					.marshal()
+						.xmljson()
+					.log("${id} - ${body}")
+					.setHeader(Exchange.HTTP_METHOD, HttpMethods.GET)
+					.setHeader(Exchange.HTTP_QUERY,
+							simple("clientId=${property.ebookId}&requestId=${property.requestId}&ebookId=${property.clientId}"))
+					.to("http4://localhost:8080/webservices/ebook/item");
+				
+			}
+		});
+		
+		context.start();
+		Thread.sleep(20000);
+		context.stop();
+	}
 }
